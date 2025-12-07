@@ -1,5 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import DailyNote from "./components/DailyNote";
+import Products from "./components/Products";
+import ProductDetail from "./components/ProductDetail";
 
 function About() {
   return (
@@ -39,13 +41,16 @@ export default function App() {
   return (
     <div>
       <nav style={{ padding: "1rem", background: "#eee" }}>
-        <Link to="/" style={{ marginRight: "1rem", fontWeight: 800 , color: "#080707ff"}}>Dashboard</Link>
-        <Link to="/about" style={{ marginRight: "1rem", fontWeight: 800 , color: "#080707ff" }}>About</Link>
+        <Link to="/" style={{ marginRight: "1rem", color: "#080707ff" }}>Dashboard</Link>
+        <Link to="/about" style={{ marginRight: "1rem", color: "#080707ff" }}>About</Link>
+        <Link to="/products" style={{ marginRight: "1rem", color: "#080707ff"}}>Products</Link>
       </nav>
 
       <Routes>
         <Route path="/" element={<DailyNote />} />
         <Route path="/about" element={<About />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </div>
   );

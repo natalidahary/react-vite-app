@@ -2,10 +2,21 @@ import { useState } from "react";
 
 export default function DailyNote() {
   const [note, setNote] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
 
-  const savedMessage = note.trim()
-    ? "Your note is saved in CalmSpace."
-    : "";
+  const handleSave = () => {
+    if (!note.trim()) {
+      setIsSaved(false);
+      return;
+    }
+
+    setIsSaved(true);
+    setNote("");
+
+    setTimeout(() => {
+      setIsSaved(false);
+    }, 1000);
+  };
 
   return (
     <div style={{
@@ -15,8 +26,13 @@ export default function DailyNote() {
       borderRadius: "12px",
       background: "#d6c8c8ff"
     }}>
-      <h2 style={{ marginBottom: "2rem", fontSize: "2.2rem", fontWeight: 800, textAlign: "center" }}>Daily Note</h2>
-      
+      <h2 style={{
+        marginBottom: "2rem",
+        fontSize: "2.2rem",
+        fontWeight: 800,
+        textAlign: "center"
+      }}>Daily Note</h2>
+
       <textarea 
         value={note}
         onChange={(e) => setNote(e.target.value)}
@@ -31,7 +47,25 @@ export default function DailyNote() {
         }}
       />
 
-      {savedMessage && (
+      {/* Save Button */}
+      <div style={{ textAlign: "center", marginTop: "1rem" }}>
+        <button
+          onClick={handleSave}
+          style={{
+            padding: "0.6rem 1.2rem",
+            borderRadius: "8px",
+            border: "1px solid #555",
+            background: "#fff",
+            fontWeight: 700,
+            cursor: "pointer"
+          }}
+        >
+          Save Note
+        </button>
+      </div>
+
+      {/* Saved Message */}
+      {isSaved && (
         <p style={{
           marginTop: "1rem",
           color: "#1b5a0dff",
@@ -39,7 +73,7 @@ export default function DailyNote() {
           textAlign: "center",
           fontWeight: 800
         }}>
-          {savedMessage}
+          Your note is saved in CalmSpace.
         </p>
       )}
     </div>

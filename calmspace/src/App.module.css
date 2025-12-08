@@ -1,0 +1,11 @@
+.nav {
+  padding: 1rem;
+  background: #eee;
+}
+
+.navLink {
+  margin-right: 1rem;
+  font-weight: 800;
+  color: #080707ff;
+  text-decoration: none;
+}

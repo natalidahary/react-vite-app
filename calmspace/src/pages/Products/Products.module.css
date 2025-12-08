@@ -1,0 +1,29 @@
+.container {
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.search {
+  padding: 0.5rem;
+  width: 240px;
+  display: block;
+  margin: 0.5rem auto 1rem;
+}
+
+.list {
+  list-style: disc;
+  padding-left: 20px;
+  color: black;
+}
+
+.item {
+  margin: 1rem 0;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}

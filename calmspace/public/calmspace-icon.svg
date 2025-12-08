@@ -1,0 +1,22 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="120" fill="url(#grad)"></rect>
+
+  <!-- Calm abstract shape -->
+  <path d="M160 300C160 250 200 210 250 210C305 210 350 250 350 300C350 350 305 390 250 390C200 390 160 350 160 300Z" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.85"></path>
+
+  <path d="M200 270C220 240 280 240 300 270" stroke="#ffffff" stroke-width="24" stroke-linecap="round" opacity="0.65"></path>
+
+  <!-- Larger CalmSpace Text -->
+  <text x="50%" y="480" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" fill="#ffffff" opacity="0.95" letter-spacing="3">
+    CalmSpace
+  </text>
+
+  <!-- Gradient -->
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d6c8c8"></stop>
+      <stop offset="1" stop-color="#c0b3b3"></stop>
+    </linearGradient>
+  </defs>
+</svg>

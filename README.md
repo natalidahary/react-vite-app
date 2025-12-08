@@ -1,73 +1,91 @@
-# CalmSpace – A Minimal Digital Workspace
-
-- CalmSpace is a simple React application built with Vite, showcasing core React concepts such as component structure, state management, routing, and clean UI styling.
-- It demonstrates core modern React concepts including:
-    - Component structure
-    - State management with hooks
-    - Client-side routing
-    - Server state management using TanStack React Query
-    - Clean UI styling for a calm user experience
+# Product Explorer – React + TypeScript + Vite
+- Product Explorer is a modern React application built with Vite, TypeScript, React Router, and TanStack React Query.
+- It demonstrates clean architecture, modular components, typed API communication, debounced search, and dynamic routing.
+- This app allows users to:
+    - Browse a list of products
+    - Search products with real-time debounced input
+    - View detailed product information
+    - Write and save personal notes
+    - Explore a well-structured, scalable React codebase
 
 ### Features Implemented
 
-1. Vite + React Setup
-- The project was created using Vite for a fast development environment.
+1. Vite + React + TypeScript
+- The app was created with Vite for a fast and modern development setup.
 
-            npm create vite@latest calmspace -- --template react
+            npm create vite@latest my-app -- --template react-ts
             npm install
             npm run dev
 
-2. DailyNote Component (useState)
-- A custom component that allows the user to write a daily intention.
-    - Uses useState to manage input.
-    - Displays a saved message when text is entered.
-    - Includes a styled textarea and card-like layout.
+2. Product List Page (React Query List Query)
+- The /products page:
+    - Fetches products using useQuery
+    - Shows loading & error states
+    - Renders a product list
+    - Supports debounced search
+    - Uses React Query's smart caching with:
 
-- Core logic:
+            queryKey: ["products", searchTerm]
 
-            const [note, setNote] = useState("");
+- This demonstrates dynamic caching and automatic refetching.
 
-            const savedMessage = note.trim()
-            ? "Your note is saved in CalmSpace."
-            : "";
+3. Product Detail Page (Dependent Query)
+- The /products/:id page:
+- Reads the product ID from the URL
+- Fetches detailed product information
+- Uses:
 
-3. React Router – Multi-Page Navigation
-- React Router was added to support multiple pages:
+            enabled: !!id
 
-            npm install react-router-dom
+- to ensure the query only runs when ID is defined → This is called a dependent query.
 
-- Routes created:
-    - / → Dashboard (DailyNote component)
-    - /about → About page describing CalmSpace
-    - /products → Products list
-    - /products/:id → Product detail page
-- A simple navigation bar allows switching between pages.
+4. Product Notes Page
+- The user can:
+    - Write notes
+    - Save them using a reusable <SharedButton />
+    - Show a success message
+    - Clear the input after saving
 
-4. TanStack React Query — Server State Management
-- React Query was installed and configured globally:
+
+5. React Router – Multi-Page Navigation
+- Routes:
+
+            /                → Product List  
+            /products/:id    → Product Details  
+            /notes           → Notes Page  
+            /about           → About page  
+
+6. TanStack React Query – Server State Management
+- Installed with:
 
             npm install @tanstack/react-query
+            npm install @tanstack/react-query-devtools
 
-Products List Page (List Query):
-- Uses useQuery to fetch a list of products and display:
-    - Loading state
-    - Error state
-    - Rendered list of items
-    - Product Detail Page (Dependent Query)
+- Used for:
+    - Server data caching
+    - Automatic refetching
+    - Query invalidation
+    - Error & loading state management
+    - The global setup in main.tsx includes:
 
-- The detail page:
-    - Reads the id from the URL
-    - Fetches details using useQuery
-    - Uses enabled: !!id to ensure dependent query behavior
+            <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+            <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
 
-5. Query Key with Filters
-- A search bar was added to the Products page:
-    - Search value stored in component state
-    - Debounced input to prevent excessive requests
-    - Query key includes the search term:
-    - queryKey: ["products", debouncedSearch]
+7. Query Key with Filters
+- The search field on the Products page updates the query key:
 
-- This demonstrates dynamic caching behavior in React Query.
+            queryKey: ["products", debouncedSearch]
+
+- React Query automatically:
+    - Caches search results separately
+    - Avoids duplicate refetches
+    - Restores old results instantly
+    - Makes searching smoother
+    - The debounce hook prevents unnecessary API calls.
 
 ### How to Run the Project
 - Clone the repository and install dependencies:

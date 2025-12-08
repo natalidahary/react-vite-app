@@ -1,4 +1,5 @@
 # Product Explorer – React + TypeScript + Vite
+
 - Product Explorer is a modern React application built with Vite, TypeScript, React Router, and TanStack React Query.
 - It demonstrates clean architecture, modular components, typed API communication, debounced search, and dynamic routing.
 - This app allows users to:

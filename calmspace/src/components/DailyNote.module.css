@@ -1,0 +1,44 @@
+.container {
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #d6c8c8ff;
+}
+
+.title {
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.textarea {
+  width: 95%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #100f0fff;
+  resize: none;
+}
+
+.buttonWrapper {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.message {
+  margin-top: 1rem;
+  color: #1b5a0dff;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 800;
+}

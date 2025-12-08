@@ -2,8 +2,8 @@
   padding: 5rem;
   margin: 5rem auto;
   line-height: 1.6;
-  background: #d6c8c8ff;
-  border-radius: 12px;
+  background: rgb(182, 210, 245);
+  border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   max-width: 900px;
 }

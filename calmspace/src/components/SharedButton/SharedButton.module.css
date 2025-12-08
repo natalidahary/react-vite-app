@@ -1,0 +1,16 @@
+.wrapper {
+  text-align: center;
+  width: 100%;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+.btn:hover {
+  border-color: var(--color-accent);
+}

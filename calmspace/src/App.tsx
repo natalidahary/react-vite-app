@@ -1,6 +1,6 @@
 import { Routes, Route, Link } from "react-router-dom";
-import DailyNote from "./components/DailyNote";
-import About from "./components/About";
+import DailyNote from "@/pages/DailyNote/DailyNote";
+import About from "@/pages/About/About";
 import styles from "./App.module.css";
 
 export default function App() {

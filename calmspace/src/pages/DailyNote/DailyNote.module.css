@@ -14,10 +14,11 @@
 }
 
 .textarea {
+  margin-bottom: 2rem;
   width: 95%;
-  padding: 0.8rem;
+  padding: 1rem;
   border-radius: 8px;
-  border: 1px solid rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
   resize: none;
 }
 

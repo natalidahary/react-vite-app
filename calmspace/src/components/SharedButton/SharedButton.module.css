@@ -4,9 +4,10 @@
 }
 
 .btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  border: 1px solid #444;
+  margin-bottom: 2rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 30px;
+  border: 3px solid #444;
   background: white;
   cursor: pointer;
   font-weight: 700;

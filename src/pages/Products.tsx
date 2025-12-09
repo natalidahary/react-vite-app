@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 import { fetchProducts } from "@/api/products";
 import { useDebounce } from "@/hooks/useDebounce";
-
-import styles from "./Products.module.css";
+import Loader from "@/components/Loader";
+import ErrorMessage from "@/components/ErrorMessage";
+import ProductList from "@/components/ProductList";
 
 export default function Products() {
   const [search, setSearch] = useState("");
@@ -16,30 +17,27 @@ export default function Products() {
     queryFn: () => fetchProducts(debounced),
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching products.</p>;
-  if (!data) return null;
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorMessage message="Error fetching products" />;
+
+  const products = data?.products ?? [];
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Products</h2>
+    <div className="products-page">
+      <h2 className="products-title">Products</h2>
 
       <input
-        className={styles.search}
+        className="products-search"
         value={search}
         placeholder="Search..."
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <ul className={styles.list}>
-        {data.products.map((item) => (
-          <li key={item.id} className={styles.item}>
-            <Link to={`/products/${item.id}`} className={styles.item}>
-              {item.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {products.length === 0 ? (
+      <p className="no-results">No products found.</p>
+      ) : (
+        <ProductList products={products} />
+      )}
     </div>
   );
 }

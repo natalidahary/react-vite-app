@@ -1,5 +1,3 @@
-import styles from "./SharedButton.module.css";
-
 interface Props {
   children: string;
   onClick: () => void;
@@ -7,8 +5,8 @@ interface Props {
 
 export default function SharedButton({ children, onClick }: Props) {
   return (
-    <div className={styles.wrapper}>
-      <button className={styles.btn} onClick={onClick}>
+    <div className="shared-button-wrapper">
+      <button className="shared-button" onClick={onClick}>
         {children}
       </button>
     </div>

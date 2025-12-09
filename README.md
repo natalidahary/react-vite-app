@@ -18,7 +18,13 @@
             npm install
             npm run dev
 
-2. Product List Page (React Query List Query)
+2. API Selection
+- For this project, the API chosen is DummyJSON.
+- List endpoint: /products
+- Detail endpoint: /products/:id.”
+- These endpoints are used for the main product listing and product detail pages.
+
+3. Product List Page (React Query List Query)
 - The /products page:
     - Fetches products using useQuery
     - Shows loading & error states
@@ -30,7 +36,7 @@
 
 - This demonstrates dynamic caching and automatic refetching.
 
-3. Product Detail Page (Dependent Query)
+4. Product Detail Page (Dependent Query)
 - The /products/:id page:
 - Reads the product ID from the URL
 - Fetches detailed product information
@@ -40,7 +46,7 @@
 
 - to ensure the query only runs when ID is defined → This is called a dependent query.
 
-4. Product Notes Page
+5. Product Notes Page
 - The user can:
     - Write notes
     - Save them using a reusable <SharedButton />
@@ -48,7 +54,7 @@
     - Clear the input after saving
 
 
-5. React Router – Multi-Page Navigation
+6. React Router – Multi-Page Navigation
 - Routes:
 
             /                → Product List  
@@ -56,7 +62,7 @@
             /notes           → Notes Page  
             /about           → About page  
 
-6. TanStack React Query – Server State Management
+7. TanStack React Query – Server State Management
 - Installed with:
 
             npm install @tanstack/react-query
@@ -76,7 +82,7 @@
             <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
 
-7. Query Key with Filters
+8. Query Key with Filters
 - The search field on the Products page updates the query key:
 
             queryKey: ["products", debouncedSearch]

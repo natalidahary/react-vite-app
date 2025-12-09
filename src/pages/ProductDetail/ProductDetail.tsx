@@ -21,7 +21,7 @@ export default function ProductDetail() {
       <img src={data?.thumbnail} className={styles.image} />
 
       <p>Price: ${data?.price}</p>
-      <p>{data?.description}</p>
+      <p className={styles.textLeft}>Description: {data?.description}</p>
     </div>
   );
 }

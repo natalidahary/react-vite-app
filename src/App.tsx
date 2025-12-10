@@ -1,20 +1,19 @@
-import { Routes, Route, Link } from "react-router-dom";
-import DailyNote from "@/pages/DailyNote/DailyNote";
-import About from "@/pages/About/About";
-import styles from "./App.module.css";
+import { Routes, Route } from "react-router-dom";
+import { Navbar } from "@/components";
+import { ProductNotes, About, Products, ProductDetail } from "@/pages";
+import "./App.css";
 
-export default function App() {
+export const App = () => {
   return (
     <div>
-      <nav className={styles.nav}>
-        <Link to="/" className={styles.navLink}>Dashboard</Link>
-        <Link to="/about" className={styles.navLink}>About</Link>
-      </nav>
+      <Navbar />
 
       <Routes>
-        <Route path="/" element={<DailyNote />} />
+        <Route path="/" element={<ProductNotes />} />
         <Route path="/about" element={<About />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </div>
   );
-}
+};

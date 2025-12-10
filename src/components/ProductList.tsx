@@ -1,11 +1,11 @@
 import { Product } from "@/types/product";
 import { Link } from "react-router-dom";
 
-interface Props {
+interface ProductListProps {
   products: Product[];
 }
 
-export default function ProductList({ products }: Props) {
+export const ProductList = ({ products }: ProductListProps) => {
   return (
     <ul className="products-list">
       {products.map((item) => (
@@ -17,4 +17,4 @@ export default function ProductList({ products }: Props) {
       ))}
     </ul>
   );
-}
+};

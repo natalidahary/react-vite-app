@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "@/api/products";
+import { Loader, ErrorMessage } from "@/components";
 
-import Loader from "@/components/Loader";
-import ErrorMessage from "@/components/ErrorMessage";
-
-export default function ProductDetail() {
+export const ProductDetail = () => {
   const { id } = useParams();
 
   const { data, isLoading, error } = useQuery({
@@ -27,4 +25,4 @@ export default function ProductDetail() {
       <p className="product-detail-text">Description: {data?.description}</p>
     </div>
   );
-}
+};

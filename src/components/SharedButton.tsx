@@ -1,9 +1,9 @@
-interface Props {
+interface SharedButtonProps {
   children: string;
   onClick: () => void;
 }
 
-export default function SharedButton({ children, onClick }: Props) {
+export const SharedButton = ({ children, onClick }: SharedButtonProps) => {
   return (
     <div className="shared-button-wrapper">
       <button className="shared-button" onClick={onClick}>
@@ -11,4 +11,4 @@ export default function SharedButton({ children, onClick }: Props) {
       </button>
     </div>
   );
-}
+};

@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
 
 import { fetchProducts } from "@/api/products";
 import { useDebounce } from "@/hooks/useDebounce";
-import Loader from "@/components/Loader";
-import ErrorMessage from "@/components/ErrorMessage";
-import ProductList from "@/components/ProductList";
+import { Loader, ErrorMessage, ProductList } from "@/components";
 
-export default function Products() {
+export const Products = () => {
   const [search, setSearch] = useState("");
   const debounced = useDebounce(search, 400);
 
@@ -16,9 +13,6 @@ export default function Products() {
     queryKey: ["products", debounced],
     queryFn: () => fetchProducts(debounced),
   });
-
-  if (isLoading) return <Loader />;
-  if (error) return <ErrorMessage message="Error fetching products" />;
 
   const products = data?.products ?? [];
 
@@ -33,11 +27,15 @@ export default function Products() {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {products.length === 0 ? (
-      <p className="no-results">No products found.</p>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <ErrorMessage message="Error fetching products" />
+      ) : products.length === 0 ? (
+        <p className="no-results">No products found.</p>
       ) : (
         <ProductList products={products} />
       )}
     </div>
   );
-}
+};

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export const Navbar = () => {
   return (
     <nav className="app-nav">
       <Link to="/" className="app-nav-link">Notes</Link>
@@ -8,4 +8,4 @@ export default function Navbar() {
       <Link to="/products" className="app-nav-link">Products</Link>
     </nav>
   );
-}
+};

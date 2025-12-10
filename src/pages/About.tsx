@@ -1,4 +1,4 @@
-export default function About() {
+export const About = () => {
   return (
     <div className="about-page">
       <h2 className="about-title">About Product Explorer</h2>
@@ -10,8 +10,8 @@ export default function About() {
       </p>
 
       <p className="about-text">
-        You can browse products, view detailed information, and experiment
-        with features powered by TanStack Query such as caching, refetching,
+        You can browse products, view detailed information, and experiment 
+        with features powered by TanStack Query such as caching, refetching, 
         and dynamic search.
       </p>
 
@@ -21,4 +21,4 @@ export default function About() {
       </p>
     </div>
   );
-}
+};

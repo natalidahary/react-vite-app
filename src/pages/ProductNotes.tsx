@@ -1,16 +1,18 @@
 import { useState } from "react";
-import SharedButton from "@/components/SharedButton";
+import { SharedButton } from "@/components";
 
-export default function ProductNotes() {
+export const ProductNotes = () => {
   const [note, setNote] = useState("");
   const [saved, setSaved] = useState(false);
 
-  function handleSave() {
+  const handleSave = () => {
     if (!note.trim()) return;
+
     setSaved(true);
     setNote("");
+
     setTimeout(() => setSaved(false), 1200);
-  }
+  };
 
   return (
     <div className="notes-card">
@@ -30,4 +32,4 @@ export default function ProductNotes() {
       {saved && <p className="notes-message">Your note has been saved.</p>}
     </div>
   );
-}
+};

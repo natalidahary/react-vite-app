@@ -1,12 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import ProductNotes from "@/pages/ProductNotes";
-import About from "@/pages/About";
-import Products from "@/pages/Products";
-import ProductDetail from "@/pages/ProductDetail";
+import { Navbar } from "@/components";
+import { ProductNotes, About, Products, ProductDetail } from "@/pages";
 import "./App.css";
 
-export default function App() {
+export const App = () => {
   return (
     <div>
       <Navbar />
@@ -19,4 +16,4 @@ export default function App() {
       </Routes>
     </div>
   );
-}
+};

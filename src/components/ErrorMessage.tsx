@@ -1,7 +1,7 @@
-interface Props {
+interface ErrorMessageProps {
   message: string;
 }
 
-export default function ErrorMessage({ message }: Props) {
+export const ErrorMessage = ({ message }: ErrorMessageProps) => {
   return <p className="error-message">{message}</p>;
-}
+};

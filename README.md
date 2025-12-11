@@ -1,105 +1,94 @@
-# Product Explorer – React + TypeScript + Vite
+## Product Explorer – React + TypeScript + Vite
 
-- Product Explorer is a modern React application built with Vite, TypeScript, React Router, and TanStack React Query.
-- It demonstrates clean architecture, modular components, typed API communication, debounced search, and dynamic routing.
-- This app allows users to:
-    - Browse a list of products
-    - Search products with real-time debounced input
-    - View detailed product information
-    - Write and save personal notes
-    - Explore a well-structured, scalable React codebase
+Product Explorer is a modern React application demonstrating real-world frontend architecture using:
+- React + TypeScript
+- React Router
+- TanStack React Query
+- Zustand
+- React Context
+- localStorage persistence
 
-### Features Implemented
+The app includes dynamic product browsing, a cart sidebar, toast notifications, debounced search, theme toggling, and clean UI state management patterns.
 
-1. Vite + React + TypeScript
-- The app was created with Vite for a fast and modern development setup.
+### Features Overview
 
-            npm create vite@latest my-app -- --template react-ts
-            npm install
-            npm run dev
+**Product Grid & Search**
+- Product list fetched via React Query
+- Debounced real-time search
+- Grid layout with images
+- Cached results and fast switching
 
-2. API Selection
-- For this project, the API chosen is DummyJSON.
-- List endpoint: /products
-- Detail endpoint: /products/:id.”
-- These endpoints are used for the main product listing and product detail pages.
+**Product Details**
+- Dependent query (enabled: !!id)
+- Add-to-cart button
+- Success toast feedback
 
-3. Product List Page (React Query List Query)
-- The /products page:
-    - Fetches products using useQuery
-    - Shows loading & error states
-    - Renders a product list
-    - Supports debounced search
-    - Uses React Query's smart caching with:
+**Global Cart Sidebar (Context)**
+- Opens from the right
+- Persisted using localStorage
+- Triggered from navbar
 
-            queryKey: ["products", searchTerm]
+**Toast Notifications (Zustand)**
+- Global store for success/error/info
+- Auto-dismiss after 3 seconds
+- Manual close button
+- ToastHost mounted at root
 
-- This demonstrates dynamic caching and automatic refetching.
+**Theme Toggle (Zustand + localStorage)**
+- Light / Dark modes
+- Theme persists across refresh
+- Updates body class dynamically
 
-4. Product Detail Page (Dependent Query)
-- The /products/:id page:
-- Reads the product ID from the URL
-- Fetches detailed product information
-- Uses:
+**Notes Page**
+- Demonstrates local UI state
+- Saved note message feedback
 
-            enabled: !!id
+### Architecture Overview
+**1. Server State → React Query**
+- Product list
+- Product details
+- Search-driven queries
 
-- to ensure the query only runs when ID is defined → This is called a dependent query.
+React Query handles caching, refetching, stale data, retries, and error states.
 
-5. Product Notes Page
-- The user can:
-    - Write notes
-    - Save them using a reusable <SharedButton />
-    - Show a success message
-    - Clear the input after saving
+**2. Global UI State → React Context**
+CartSidebarContext manages:
+- isOpen
+- open(), close(), toggle()
+- Persisted with useLocalStorage()
+
+**3. Global Client State → Zustand**
+
+Used for:
+- Toast Notifications
+
+            { id, type, message, timestamp, timeout? }
+
+Store API:
+- addToast()
+- removeToast()
+- toasts[]
+
+Cart Store:
+- Add/remove items
+- Global cart count
+
+Theme Store:
+- theme (light/dark)
+- toggleTheme()
+- Persisted to localStorage
+
+**4. Local UI State → useState**
+Used where global state is unnecessary:
+- Search input
+- Notes page
+- Temporary "saved" message
 
 
-6. React Router – Multi-Page Navigation
-- Routes:
-
-            /                → Product List  
-            /products/:id    → Product Details  
-            /notes           → Notes Page  
-            /about           → About page  
-
-7. TanStack React Query – Server State Management
-- Installed with:
-
-            npm install @tanstack/react-query
-            npm install @tanstack/react-query-devtools
-
-- Used for:
-    - Server data caching
-    - Automatic refetching
-    - Query invalidation
-    - Error & loading state management
-    - The global setup in main.tsx includes:
-
-            <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-            <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-
-8. Query Key with Filters
-- The search field on the Products page updates the query key:
-
-            queryKey: ["products", debouncedSearch]
-
-- React Query automatically:
-    - Caches search results separately
-    - Avoids duplicate refetches
-    - Restores old results instantly
-    - Makes searching smoother
-    - The debounce hook prevents unnecessary API calls.
-
-### How to Run the Project
-- Clone the repository and install dependencies:
+### Running the Project
 
             npm install
             npm run dev
-
-- Then open the provided local URL, usually:
+Open:
 
             http://localhost:5173

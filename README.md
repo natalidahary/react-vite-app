@@ -10,6 +10,12 @@ Product Explorer is a modern React application demonstrating real-world frontend
 
 The app includes dynamic product browsing, a cart sidebar, toast notifications, debounced search, theme toggling, and clean UI state management patterns.
 
+### Fast setup using Vite:
+
+            npm create vite@latest my-app -- --template react-ts
+            npm install
+            npm run dev
+
 ### Features Overview
 
 **Product Grid & Search**

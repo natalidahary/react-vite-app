@@ -1,14 +1,14 @@
-interface SharedButtonProps {
-  children: string;
-  onClick: () => void;
+interface SharedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
 }
 
-export const SharedButton = ({ children, onClick }: SharedButtonProps) => {
+export const SharedButton = ({ children, className = "", ...props }: SharedButtonProps) => {
   return (
-    <div className="shared-button-wrapper">
-      <button className="shared-button" onClick={onClick}>
-        {children}
-      </button>
-    </div>
+    <button
+      className={`shared-button ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
   );
 };

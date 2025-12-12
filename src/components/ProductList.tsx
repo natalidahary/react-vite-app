@@ -7,14 +7,21 @@ interface ProductListProps {
 
 export const ProductList = ({ products }: ProductListProps) => {
   return (
-    <ul className="products-list">
+    <div className="product-grid">
       {products.map((item) => (
-        <li key={item.id} className="products-item">
-          <Link to={`/products/${item.id}`} className="products-link">
-            {item.title}
-          </Link>
-        </li>
+        <Link
+          key={item.id}
+          to={`/products/${item.id}`}
+          className="product-card"
+        >
+          <img
+            src={item.thumbnail}
+            alt={item.title}
+            className="product-card-image"
+          />
+          <h3 className="product-card-title">{item.title}</h3>
+        </Link>
       ))}
-    </ul>
+    </div>
   );
 };

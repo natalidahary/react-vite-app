@@ -1,4 +1,4 @@
-import { useSidebar } from "@/context/SidebarContext";
+import { useSidebar } from "@/hooks/useSidebar";
 import { useCartStore , useThemeStore } from "@/stores";
 import { Link } from "react-router-dom";
 

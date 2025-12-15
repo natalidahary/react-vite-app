@@ -5,7 +5,7 @@ import "./index.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { SidebarProvider } from "./context/SidebarContext";
+import { SidebarProvider } from "./context/SidebarProvider";
 
 const queryClient = new QueryClient();
 

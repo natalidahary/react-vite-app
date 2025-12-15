@@ -1,5 +1,5 @@
 import { useCartStore } from "@/stores/cartStore";
-import { useSidebar } from "@/context/SidebarContext";
+import { useSidebar } from "@/hooks/useSidebar";
 import { SharedButton } from "@/components";
 
 export const CartSidebar = () => {

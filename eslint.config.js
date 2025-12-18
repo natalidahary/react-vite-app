@@ -2,14 +2,19 @@ import js from "@eslint/js";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
+import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores([
+    "dist",
+    "node_modules",
+    ".vite",
+    "build",
+    "coverage",
+  ]),
 
-  // === JavaScript + React rules (original Vite rules) ===
+  // JS + JSX
   {
     files: ["**/*.js", "**/*.jsx"],
     extends: [
@@ -18,36 +23,31 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
       globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        ecmaFeatures: { jsx: true },
-        sourceType: "module",
-      },
     },
   },
 
-  // === TypeScript + React rules ===
+  // TS + TSX
   {
     files: ["**/*.ts", "**/*.tsx"],
-    plugins: {
-      "@typescript-eslint": tseslint,
-    },
-    languageOptions: {
-      parser: tsParser,
-      ecmaVersion: "latest",
-      sourceType: "module",
-      globals: globals.browser,
-    },
     extends: [
-      "plugin:@typescript-eslint/recommended",
+      ...tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    languageOptions: {
+      globals: globals.browser,
+    },
     rules: {
-      // Optional rule: ignore unused vars that start with _
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    },
+  },
+
+  // Node config files
+  {
+    files: ["vite.config.*", "*.config.*"],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ]);

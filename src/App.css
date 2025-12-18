@@ -1,12 +1,37 @@
+/* =========================================================
+   GLOBAL RESET & BASE STYLES
+========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #root {
   padding: 1.5rem;
 }
 
+.no-results,
+.loader,
+.error-message {
+  text-align: center;
+  font-weight: 600;
+}
+
+.error-message {
+  color: red;
+}
+
+
+/* =========================================================
+   NAVIGATION BAR
+========================================================= */
 .app-nav {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 1.5rem;
-  padding: 1rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   margin-bottom: 2rem;
   background: var(--color-card);
   border-radius: var(--radius);
@@ -14,9 +39,20 @@
 }
 
 .app-nav-link {
-  font-weight: 800;
+  font-weight: 400;
   color: #080707;
   text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.2rem 0.6rem;
+  margin: 0;
+  line-height: 1;
+  font-size: 1rem;
+  border: 2px solid #444;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; 
   transition: color var(--transition);
 }
 
@@ -24,21 +60,24 @@
   color: var(--color-accent);
 }
 
+
+/* =========================================================
+   PRODUCT LIST PAGE
+========================================================= */
 .products-page {
   padding: 5rem;
   margin: 5rem auto;
   line-height: 1.6;
-  background: rgb(182, 210, 245);
+  background: rgb(226, 228, 231);
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .products-title {
   text-align: center;
   font-weight: 800;
   font-size: 2rem;
-  margin: 0;
 }
 
 .products-search {
@@ -49,29 +88,50 @@
   margin: 2rem auto 1rem;
 }
 
-.products-list {
-  list-style: disc;
-  padding-left: 20px;
-  color: black;
-  margin: 2rem auto 1rem;
-  text-align: left;
+/* GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 0;
 }
 
-.products-item {
-  margin: 1rem 0;
-  font-weight: 600;
-}
-
-.products-link {
-  color: #000;
+/* PRODUCT CARD */
+.product-card {
+  display: block;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0.8rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   text-decoration: none;
+  color: black;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.products-link:hover {
-  text-decoration: underline;
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
+.product-card-image {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 0.8rem;
+}
+
+.product-card-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   PRODUCT DETAIL PAGE
+========================================================= */
 .product-detail {
+  position: relative;
   max-width: 700px;
   margin: 2rem auto;
   padding: 2rem;
@@ -82,7 +142,6 @@
 }
 
 .product-detail-title {
-  text-align: center;
   margin-bottom: 1rem;
   font-weight: 800;
 }
@@ -90,9 +149,8 @@
 .product-detail-image {
   max-width: 300px;
   width: 100%;
-  height: auto;
-  display: block;
   margin: 1rem auto;
+  display: block;
   border-radius: 10px;
 }
 
@@ -103,11 +161,41 @@
   font-size: 1rem;
 }
 
+/* BACK BUTTON */
+.back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  background: #ffffff;
+  border: 2px solid #444;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: black;
+  transition: 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f2f2f2;
+  border-color: #000;
+}
+
+
+/* =========================================================
+   ABOUT PAGE
+========================================================= */
 .about-page {
   padding: 5rem;
   margin: 5rem auto;
   line-height: 1.6;
-  background: rgb(182, 210, 245);
+  background: rgb(226, 228, 231);
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   max-width: 900px;
@@ -127,33 +215,37 @@
   margin-top: 2rem;
 }
 
+
+/* =========================================================
+   NOTES PAGE
+========================================================= */
 .notes-card {
   max-width: 500px;
   margin: 5rem auto;
   padding: 1.5rem;
   border-radius: 30px;
-  background: rgb(182, 210, 245);
+  background: rgb(226, 228, 231);
 }
 
 .notes-title {
-  margin-bottom: 2rem;
+  text-align: center;
   font-size: 2.2rem;
   font-weight: 800;
-  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .notes-textarea {
-  margin-bottom: 2rem;
   width: 95%;
   padding: 1rem;
+  margin-bottom: 2rem;
   border-radius: 8px;
-  border: 2px solid rgb(0, 0, 0);
+  border: 2px solid black;
   resize: none;
 }
 
 .notes-message {
   margin-top: 1rem;
-  color: rgb(19, 5, 6);
+  color: #130506;
   font-size: 1rem;
   text-align: center;
   font-weight: 800;
@@ -163,14 +255,13 @@
   text-align: center;
 }
 
-.shared-button-wrapper {
-  text-align: center;
-  width: 100%;
-}
 
-.shared-button {
-  margin-bottom: 2rem;
+/* =========================================================
+  BUTTONS
+========================================================= */
+.button {
   padding: 0.8rem 1.2rem;
+  margin-top: 2rem;
   border-radius: 30px;
   border: 3px solid #444;
   background: white;
@@ -179,24 +270,191 @@
   transition: border-color var(--transition);
 }
 
-.shared-button:hover {
+.button:hover {
   border-color: var(--color-accent);
 }
 
-.no-results {
-  text-align: center;
-  margin-top: 2rem;
+.cart-button {
+  margin: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 2px solid #444;
+  cursor: pointer;
   font-weight: 600;
+  transition: 0.2s ease;
 }
 
-.loader {
-  text-align: center;
+.cart-button:hover {
+  border-color: #000;
+  background: #f2f2f2;
+}
+
+
+/* =========================================================
+   CART SIDEBAR
+========================================================= */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+  padding: 1rem;
+  transition: right 0.3s ease;
+  z-index: 1001;
+}
+
+.cart-sidebar.open {
+  right: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+
+/* =========================================================
+   TOAST SYSTEM
+========================================================= */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 2000;
+}
+
+.toast {
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  color: white;
   font-weight: 600;
+  min-width: 240px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.error-message {
-  color: red;
-  text-align: center;
-  font-weight: 700;
+.toast.success { background: #3cb371; }
+.toast.error   { background: #d9534f; }
+.toast.info    { background: #0275d8; }
+
+.toast-close {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.1rem;
 }
 
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+body.dark {
+  background: #181818;
+  color: #f5f5f5;
+}
+
+/* Containers */
+body.dark .products-page,
+body.dark .about-page,
+body.dark .notes-card,
+body.dark .product-detail {
+  background: #242424;
+  border: 1px solid #333;
+}
+
+/* Titles */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark .products-title,
+body.dark .about-title,
+body.dark .notes-title,
+body.dark .product-detail-title {
+  color: #fff;
+}
+
+/* Text */
+body.dark .product-detail-text,
+body.dark .error-message,
+body.dark .about-text,
+body.dark .notes-message {
+  color: #e0e0e0;
+}
+
+/* Inputs */
+body.dark input,
+body.dark textarea {
+  background: #3a3a3a;
+  color: #ffffff;
+  border: 2px solid #666;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #bbbbbb;
+}
+
+/* Buttons */
+body.dark .button,
+body.dark button {
+  background: #3a3a3a;
+  border: 2px solid #777;
+  color: #f5f5f5;
+}
+
+body.dark button:hover,
+body.dark .button:hover {
+  border-color: #bbb;
+}
+
+/* Navbar */
+body.dark .app-nav {
+  background: #222;
+}
+
+body.dark .app-nav-link {
+  color: #eee;
+}
+
+/* Sidebar */
+body.dark .cart-sidebar {
+  background: #2a2a2a;
+}
+
+/* Product Cards */
+body.dark .product-card {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+body.dark .product-card-title {
+  color: #fff;
+}
+
+/* Back Button */
+body.dark .back-button {
+  background: #2a2a2a;
+  border: 2px solid #777;
+  color: #fff;
+}
+
+body.dark .back-button:hover {
+  border-color: #bbb;
+}
+
+/* Toasts */
+body.dark .toast.success { background: #2e8b57; }
+body.dark .toast.error   { background: #b23b38; }
+body.dark .toast.info    { background: #1d74d4; }

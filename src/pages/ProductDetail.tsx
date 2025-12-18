@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "@/api/products";
-import { Loader, ErrorMessage, SharedButton} from "@/components";
+import { Loader, ErrorMessage, Button} from "@/components";
 import { useCartStore , useToastStore} from "@/stores";
 import { Link } from "react-router-dom";
 
@@ -39,9 +39,9 @@ export const ProductDetail = () => {
       <p className="product-detail-text">Price: ${data?.price}</p>
       <p className="product-detail-text">Description: {data?.description}</p>
 
-      <SharedButton onClick={handleAdd} className="add-button">
+      <Button onClick={handleAdd} className="add-button">
         Add to Cart
-      </SharedButton>
+      </Button>
     </div>
   );
 };

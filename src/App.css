@@ -257,9 +257,9 @@
 
 
 /* =========================================================
-   SHARED BUTTONS
+  BUTTONS
 ========================================================= */
-.shared-button {
+.button {
   padding: 0.8rem 1.2rem;
   margin-top: 2rem;
   border-radius: 30px;
@@ -270,7 +270,7 @@
   transition: border-color var(--transition);
 }
 
-.shared-button:hover {
+.button:hover {
   border-color: var(--color-accent);
 }
 
@@ -406,7 +406,7 @@ body.dark textarea::placeholder {
 }
 
 /* Buttons */
-body.dark .shared-button,
+body.dark .button,
 body.dark button {
   background: #3a3a3a;
   border: 2px solid #777;
@@ -414,7 +414,7 @@ body.dark button {
 }
 
 body.dark button:hover,
-body.dark .shared-button:hover {
+body.dark .button:hover {
   border-color: #bbb;
 }
 

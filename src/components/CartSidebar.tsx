@@ -1,6 +1,6 @@
 import { useCartStore } from "@/stores/cartStore";
 import { useSidebar } from "@/hooks/useSidebar";
-import { SharedButton } from "@/components";
+import { Button } from "@/components";
 
 export const CartSidebar = () => {
   const { isOpen, closeSidebar } = useSidebar();
@@ -23,26 +23,26 @@ export const CartSidebar = () => {
             {items.map((item) => (
               <li key={item.id} className="cart-item">
                 <span>{item.title} (x{item.quantity})</span>
-                <SharedButton
+                <Button
                   className="cart-button"
                   onClick={() => removeFromCart(item.id)}
                 >
                   Remove
-                </SharedButton>
+                </Button>
               </li>
             ))}
           </ul>
         )}
 
-        <SharedButton className="cart-button" onClick={closeSidebar}>
+        <Button className="cart-button" onClick={closeSidebar}>
           Close
-        </SharedButton>
+        </Button>
 
         {items.length > 0 && (
           <>
-           <SharedButton className="cart-button" onClick={clearCart}>
+           <Button className="cart-button" onClick={clearCart}>
             Clear Cart
-          </SharedButton>
+          </Button>
           </>
         )}
       </div>

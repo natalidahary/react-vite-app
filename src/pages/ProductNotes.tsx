@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SharedButton } from "@/components";
+import { Button } from "@/components";
 
 export const ProductNotes = () => {
   const [note, setNote] = useState("");
@@ -26,7 +26,7 @@ export const ProductNotes = () => {
       />
 
       <div className="notes-actions">
-        <SharedButton onClick={handleSave}>Save Note</SharedButton>
+        <Button onClick={handleSave}>Save Note</Button>
       </div>
 
       {saved && <p className="notes-message">Your note has been saved.</p>}

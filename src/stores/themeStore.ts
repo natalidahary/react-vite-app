@@ -2,6 +2,11 @@ import { create } from "zustand";
 
 export type Theme = "light" | "dark";
 
+const THEME_MAP: Record<Theme, string> = {
+  light: "/themes/lara-light-blue/theme.css",
+  dark: "/themes/lara-dark-blue/theme.css",
+};
+
 interface ThemeStore {
   theme: Theme;
   toggleTheme: () => void;
@@ -9,7 +14,7 @@ interface ThemeStore {
 }
 
 export const useThemeStore = create<ThemeStore>((set) => ({
-  theme: (localStorage.getItem("theme") as Theme) || "light",
+  theme: (localStorage.getItem("theme") as Theme) || "dark",
 
   toggleTheme: () =>
     set((state) => {
@@ -23,3 +28,13 @@ export const useThemeStore = create<ThemeStore>((set) => ({
     set({ theme });
   },
 }));
+
+export const applyPrimeTheme = (theme: Theme) => {
+  const link = document.getElementById(
+    "primereact-theme"
+  ) as HTMLLinkElement;
+
+  if (link) {
+    link.href = THEME_MAP[theme];
+  }
+};

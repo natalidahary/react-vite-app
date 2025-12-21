@@ -1,57 +1,60 @@
-import { useState , useRef} from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "@/api/products";
 import { useDebounce } from "@/hooks/useDebounce";
-import { Loader, ErrorMessage, ProductList } from "@/components";
-import { useToastStore } from "@/stores/toastStore";
-import type { ProductListResponse } from "@/types/product";
+import { Loader, ErrorMessage } from "@/components";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const Products = () => {
   const [search, setSearch] = useState("");
   const debounced = useDebounce(search, 400);
+  const { t, i18n } = useTranslation("products");
 
-  const addToast = useToastStore((s) => s.addToast);
-  const hasShownErrorRef = useRef(false);
-
-  const { data, error, isLoading } = useQuery<ProductListResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["products", debounced],
-    queryFn: () => fetchProducts(debounced),
-
-    retry: false,
-    throwOnError: () => {
-      if (!hasShownErrorRef.current) {
-        addToast({
-          type: "error",
-          message: "Failed to load products",
-        });
-        hasShownErrorRef.current = true;
-      }
-      return false;
-    },
+    queryFn: () => fetchProducts(debounced)
   });
 
   const products = data?.products ?? [];
 
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorMessage message={t("error")} />;
+
+  const formatPrice = (value: number) =>
+  new Intl.NumberFormat(i18n.language, {
+    style: "currency",
+    currency: i18n.language === "he" ? "ILS" : "USD",
+  }).format(value);
+
   return (
     <div className="products-page">
-      <h2 className="products-title">Products</h2>
+      <h2 className="products-title">{t("title")}</h2>
 
       <input
         className="products-search"
         value={search}
-        placeholder="Search..."
+        placeholder={t("search")}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
-        <ErrorMessage message="Error fetching products" />
-      ) : products.length === 0 ? (
-        <p className="no-results">No products found.</p>
-      ) : (
-        <ProductList products={products} />
-      )}
+      <p>{t("results", { count: products.length })}</p>
+
+      <DataTable key={i18n.language} value={products} paginator rows={8} sortMode="single">
+        <Column field="title" header={t("table.title")} sortable />
+        <Column header={t("table.price")} sortable body={(p) => formatPrice(p.price)}/>
+        <Column field="category" header={t("table.category")} />
+        <Column
+          header={t("table.image")}
+          body={(p) => <img src={p.thumbnail} width={50} />}
+        />
+        <Column
+          header={t("table.action")}
+          body={(p) => <Link to={`/products/${p.id}`}>{t("view")}</Link>}
+        />
+      </DataTable>
     </div>
   );
 };

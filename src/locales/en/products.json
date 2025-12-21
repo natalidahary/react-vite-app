@@ -1,0 +1,20 @@
+{
+  "title": "Products",
+  "search": "Search…",
+  "loading": "Loading products…",
+  "error": "Failed to load products",
+  "empty": "No products found",
+  "results_one": "{{count}} product",
+  "results_other": "{{count}} products",
+  "price": "Price: ${{value}}",
+  "add": "Add to cart",
+  "added": "\"{{title}}\" added to cart!",
+  "table": {
+    "title": "Title",
+    "price": "Price",
+    "category": "Category",
+    "image": "Image",
+    "action": "Action"
+  },
+  "view": "View details"
+}

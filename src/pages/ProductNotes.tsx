@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components";
 
 export const ProductNotes = () => {
+  const { t } = useTranslation("common");
   const [note, setNote] = useState("");
   const [saved, setSaved] = useState(false);
 
@@ -16,20 +18,22 @@ export const ProductNotes = () => {
 
   return (
     <div className="notes-card">
-      <h2 className="notes-title">Product Notes</h2>
+      <h2 className="notes-title">{t("notes.title")}</h2>
 
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
         className="notes-textarea"
-        placeholder="Write a note about a product..."
+        placeholder={t("notes.placeholder")}
       />
 
       <div className="notes-actions">
-        <Button onClick={handleSave}>Save Note</Button>
+        <Button onClick={handleSave}>{t("notes.save")}</Button>
       </div>
 
-      {saved && <p className="notes-message">Your note has been saved.</p>}
+      {saved && (
+        <p className="notes-message">{t("notes.saved")}</p>
+      )}
     </div>
   );
 };

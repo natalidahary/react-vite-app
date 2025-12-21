@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "notes": "Notes",
+    "about": "About",
+    "products": "Products",
+    "cart": "Cart ({{count}})"
+  },
+  "notes": {
+    "title": "Product Notes",
+    "placeholder": "Write a note about a product...",
+    "save": "Save Note",
+    "saved": "Your note has been saved."
+  },
+  "about": {
+    "title": "About",
+    "p1": "Product Explorer is a simple React application built to demonstrate modern frontend concepts such as routing, data fetching, searching, and reusable UI components.",
+    "p2": "You can browse products, view detailed information, and experiment with features powered by TanStack Query such as caching, refetching, and dynamic search.",
+    "more": "Learn more on <1>our website</1> about how this app was built."
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "No items yet.",
+    "remove": "Remove",
+    "close": "Close",
+    "clear": "Clear Cart"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  }
+}

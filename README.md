@@ -1,95 +1,99 @@
-## Product Explorer – React + TypeScript + Vite
+## Product Explorer – Advanced 1 (i18n + PrimeReact)
 
-Product Explorer is a modern React application demonstrating real-world frontend architecture using:
-- React + TypeScript
+This project continues from an existing Vite + React store application
+as part of **Advanced 1 homework**.
+
+Starting point: existing store app using TanStack Query  
+API used: DummyJSON (https://dummyjson.com)
+
+
+### Tech Stack
+
+- React + TypeScript + Vite
 - React Router
 - TanStack React Query
 - Zustand
 - React Context
+- i18next + react-i18next
+- PrimeReact + PrimeIcons
 - localStorage persistence
 
-The app includes dynamic product browsing, a cart sidebar, toast notifications, debounced search, theme toggling, and clean UI state management patterns.
+### Step 1 – Internationalization (i18n)
 
-### Fast setup using Vite:
+- Added i18next + react-i18next
+- Initialized i18n once in `src/i18n.ts`
+- Used namespaces:
+  - `common` – navigation, buttons, generic UI
+  - `products` – product list & detail UI
+- Supported languages:
+  - English (`en`)
+  - Hebrew (`he`)
 
-            npm create vite@latest my-app -- --template react-ts
-            npm install
-            npm run dev
+### Step 2 – i18n Usage
 
-### Features Overview
-
-**Product Grid & Search**
-- Product list fetched via React Query
-- Debounced real-time search
-- Grid layout with images
-- Cached results and fast switching
-
-**Product Details**
-- Dependent query (enabled: !!id)
-- Add-to-cart button
-- Success toast feedback
-
-**Global Cart Sidebar (Context)**
-- Opens from the right
-- Persisted using localStorage
-- Triggered from navbar
-
-**Toast Notifications (Zustand)**
-- Global store for success/error/info
-- Auto-dismiss after 3 seconds
-- Manual close button
-- ToastHost mounted at root
-
-**Theme Toggle (Zustand + localStorage)**
-- Light / Dark modes
-- Theme persists across refresh
-- Updates body class dynamically
-
-**Notes Page**
-- Demonstrates local UI state
-- Saved note message feedback
-
-### Architecture Overview
-**1. Server State → React Query**
-- Product list
-- Product details
-- Search-driven queries
-
-React Query handles caching, refetching, stale data, retries, and error states.
-
-**2. Global UI State → React Context**
-CartSidebarContext manages:
-- isOpen
-- open(), close(), toggle()
-- Persisted with useLocalStorage()
-
-**3. Global Client State → Zustand**
-
-Used for:
-- Toast Notifications
-
-            { id, type, message, timestamp, timeout? }
-
-Store API:
-- addToast()
-- removeToast()
-- toasts[]
-
-Cart Store:
-- Add/remove items
-- Global cart count
-
-Theme Store:
-- theme (light/dark)
-- toggleTheme()
-- Persisted to localStorage
-
-**4. Local UI State → useState**
-Used where global state is unnecessary:
-- Search input
+Translated all visible UI strings:
+- Navbar
+- Products list
+- Product detail
+- Cart sidebar
 - Notes page
-- Temporary "saved" message
 
+Demonstrated required i18n features:
+- **Interpolation** – cart item count
+- **Pluralization** – product results count
+- **`<Trans />` usage** – embedded link in About page
+
+### Step 3 – Language Switcher + Persistence
+
+- Language switcher in header
+- Uses `i18n.changeLanguage()` for immediate UI updates
+- Selected language persisted in `localStorage`
+- Restored on page reload
+- Default language: `en`
+
+### Step 4 – RTL Support (Hebrew)
+
+- When Hebrew is active:
+  - `document.documentElement.dir = "rtl"`
+  - `document.documentElement.lang = "he"`
+- Fixed RTL layout issues (alignment, spacing, icons)
+
+### Step 5 – PrimeReact DataTable
+
+- Installed PrimeReact and PrimeIcons
+- Converted products list to PrimeReact DataTable
+- Data driven directly from TanStack Query (no duplicated server state)
+
+**Columns:**
+- Title
+- Price
+- Category
+- Image
+- Action (View details)
+
+**Features:**
+- Sorting (title, price)
+- Pagination (8 rows per page)
+
+### Step 6 – PrimeReact Theme Switch
+
+- Implemented dynamic PrimeReact theme switching
+- Themes used:
+  - `lara-light-blue`
+  - `lara-dark-blue`
+- Theme switcher in header
+- Selected theme persisted in `localStorage`
+- Default theme: `dark`
+
+**localStorage key:** `theme`
+
+### Bonus A – Locale-aware Price Formatting
+
+- Prices formatted using `Intl.NumberFormat`
+- Currency adapts to active language:
+  - EN → USD
+  - HE → ILS
+- Prices update immediately on language switch
 
 ### Running the Project
 

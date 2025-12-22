@@ -10,11 +10,12 @@ const THEME_MAP: Record<Theme, string> = {
 interface ThemeStore {
   theme: Theme;
   toggleTheme: () => void;
-  setTheme: (theme: Theme) => void;
 }
 
+const stored = localStorage.getItem("theme");
+
 export const useThemeStore = create<ThemeStore>((set) => ({
-  theme: (localStorage.getItem("theme") as Theme) || "dark",
+  theme: stored === "dark" || stored === "light" ? stored : "light",
 
   toggleTheme: () =>
     set((state) => {
@@ -22,19 +23,10 @@ export const useThemeStore = create<ThemeStore>((set) => ({
       localStorage.setItem("theme", next);
       return { theme: next };
     }),
-
-  setTheme: (theme) => {
-    localStorage.setItem("theme", theme);
-    set({ theme });
-  },
 }));
 
 export const applyPrimeTheme = (theme: Theme) => {
-  const link = document.getElementById(
-    "primereact-theme"
-  ) as HTMLLinkElement;
-
-  if (link) {
-    link.href = THEME_MAP[theme];
-  }
+  const link = document.getElementById("primereact-theme") as HTMLLinkElement;
+  if (!link) return;
+  link.href = THEME_MAP[theme];
 };

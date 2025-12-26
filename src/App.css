@@ -126,6 +126,24 @@
   font-weight: 700;
 }
 
+/* PrimeReact DataTable stability */
+.p-datatable table {
+  table-layout: fixed;
+}
+
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr > td {
+  height: 44px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fix paginator height */
+.p-datatable .p-paginator {
+  min-height: 56px;
+}
 
 /* =========================================================
    PRODUCT DETAIL PAGE

@@ -1,8 +1,10 @@
 import { useCartStore } from "@/stores/cartStore";
 import { useSidebar } from "@/hooks/useSidebar";
 import { Button } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export const CartSidebar = () => {
+  const { t } = useTranslation("common");
   const { isOpen, closeSidebar } = useSidebar();
   const { items, removeFromCart, clearCart } = useCartStore();
 
@@ -14,20 +16,22 @@ export const CartSidebar = () => {
       />
 
       <div className={`cart-sidebar ${isOpen ? "open" : ""}`}>
-        <h3>Your Cart</h3>
+        <h3>{t("cart.title")}</h3>
 
         {items.length === 0 ? (
-          <p>No items yet.</p>
+          <p>{t("cart.empty")}</p>
         ) : (
           <ul>
             {items.map((item) => (
               <li key={item.id} className="cart-item">
-                <span>{item.title} (x{item.quantity})</span>
+                <span>
+                  {item.title} (x{item.quantity})
+                </span>
                 <Button
                   className="cart-button"
                   onClick={() => removeFromCart(item.id)}
                 >
-                  Remove
+                  {t("cart.remove")}
                 </Button>
               </li>
             ))}
@@ -35,15 +39,13 @@ export const CartSidebar = () => {
         )}
 
         <Button className="cart-button" onClick={closeSidebar}>
-          Close
+          {t("cart.close")}
         </Button>
 
         {items.length > 0 && (
-          <>
-           <Button className="cart-button" onClick={clearCart}>
-            Clear Cart
+          <Button className="cart-button" onClick={clearCart}>
+            {t("cart.clear")}
           </Button>
-          </>
         )}
       </div>
     </>

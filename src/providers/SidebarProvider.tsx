@@ -1,4 +1,4 @@
-import { SidebarContext } from "./SidebarContext";
+import { SidebarContext } from "@/context/SidebarContext";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export const SidebarProvider = ({

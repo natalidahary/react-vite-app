@@ -1,15 +1,9 @@
 {
   "nav": {
-    "notes": "הערות",
+    "form": "טופס",
     "about": "אודות",
     "products": "מוצרים",
     "cart": "עגלה ({{count}})"
-  },
-  "notes": {
-    "title": "הערות מוצר",
-    "placeholder": "כתוב הערה על מוצר...",
-    "save": "שמור הערה",
-    "saved": "ההערה נשמרה בהצלחה."
   },
   "about": {
     "title": "אודות",
@@ -27,5 +21,84 @@
   "theme": {
     "light": "מצב בהיר",
     "dark": "מצב כהה"
+  },
+  "form": {
+    "title": "טופס הרשמה",
+    "description": "מלא/י את כל השדות כדי לאפשר שליחה.",
+    "experienceLabel": "רמת ניסיון: {{value}}/10",
+    "cacheNote": "שדות לא רגישים נשמרים מקומית בזמן ההקלדה.",
+    "labels": {
+      "firstName": "שם פרטי",
+      "lastName": "שם משפחה",
+      "email": "אימייל",
+      "phone": "טלפון",
+      "password": "סיסמה",
+      "confirmPassword": "אימות סיסמה",
+      "age": "גיל",
+      "birthDate": "תאריך לידה",
+      "website": "קישור לתיק עבודות",
+      "country": "מדינה",
+      "role": "תפקיד ראשי",
+      "contactMethod": "אמצעי קשר מועדף",
+      "bio": "קצת עליך",
+      "newsletter": "הירשם/י לעדכונים על המוצר",
+      "terms": "אני מסכים/ה לתנאים ולהגבלות"
+    },
+    "placeholders": {
+      "website": "https://"
+    },
+    "options": {
+      "selectOne": "בחר/י אחד",
+      "countries": {
+        "israel": "ישראל",
+        "usa": "ארצות הברית",
+        "uk": "הממלכה המאוחדת",
+        "germany": "גרמניה"
+      },
+      "roles": {
+        "developer": "מפתח/ת",
+        "designer": "מעצב/ת",
+        "pm": "מנהל/ת מוצר",
+        "qa": "בודק/ת QA"
+      },
+      "contactMethods": {
+        "email": "אימייל",
+        "phone": "טלפון",
+        "sms": "SMS"
+      }
+    },
+    "buttons": {
+      "submit": "שליחת טופס",
+      "reset": "איפוס טופס",
+      "submitting": "שולח..."
+    },
+    "errors": {
+      "firstNameRequired": "יש להזין שם פרטי",
+      "firstNameMin": "שם פרטי חייב להכיל לפחות 2 תווים",
+      "lastNameRequired": "יש להזין שם משפחה",
+      "lastNameMin": "שם משפחה חייב להכיל לפחות 2 תווים",
+      "emailRequired": "יש להזין אימייל",
+      "emailInvalid": "נא להזין כתובת אימייל תקינה",
+      "phoneRequired": "יש להזין טלפון",
+      "phoneInvalid": "נא להזין מספר טלפון תקין",
+      "passwordRequired": "יש להזין סיסמה",
+      "passwordMin": "הסיסמה חייבת להכיל לפחות 8 תווים",
+      "passwordNumber": "הסיסמה חייבת לכלול מספר אחד לפחות",
+      "confirmPasswordRequired": "יש לאשר את הסיסמה",
+      "confirmPasswordMismatch": "הסיסמאות אינן תואמות",
+      "ageRequired": "יש להזין גיל",
+      "ageMin": "עליך להיות בן/בת 16 לפחות",
+      "ageMax": "נא להזין גיל סביר",
+      "birthDateRequired": "יש להזין תאריך לידה",
+      "websiteRequired": "יש להזין קישור לתיק עבודות",
+      "websiteInvalid": "הקישור חייב להתחיל ב־http:// או https://",
+      "countryRequired": "נא לבחור מדינה",
+      "roleRequired": "נא לבחור תפקיד ראשי",
+      "contactMethodRequired": "נא לבחור אמצעי קשר",
+      "experienceRequired": "נא לבחור רמת ניסיון",
+      "bioRequired": "ספר/י לנו קצת עליך",
+      "bioMin": "הביוגרפיה חייבת להכיל לפחות 20 תווים",
+      "termsRequired": "חובה לאשר את התנאים כדי להמשיך"
+    }
   }
 }

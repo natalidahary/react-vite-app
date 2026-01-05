@@ -32,7 +32,7 @@ export const Navbar = () => {
         HE
       </button>
 
-      <Link to="/" className="app-nav-link">{t("nav.notes")}</Link>
+      <Link to="/" className="app-nav-link">{t("nav.form")}</Link>
       <Link to="/about" className="app-nav-link">{t("nav.about")}</Link>
       <Link to="/products" className="app-nav-link">{t("nav.products")}</Link>
     </nav>

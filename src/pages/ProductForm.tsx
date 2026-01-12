@@ -1,37 +1,95 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useMemo } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useForm, useWatch } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-type FormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  phone: string;
-  age: number;
-  website: string;
-  birthDate: string;
-  country: string;
-  role: string;
-  contactMethod: "email" | "phone" | "sms";
-  newsletter: boolean;
-  terms: boolean;
-  experience: number;
-  bio: string;
-};
+const buildSchema = (t: TFunction) =>
+  z
+    .object({
+      firstName: z
+        .string()
+        .min(1, t("form.errors.firstNameRequired"))
+        .min(2, t("form.errors.firstNameMin")),
+      lastName: z
+        .string()
+        .min(1, t("form.errors.lastNameRequired"))
+        .min(2, t("form.errors.lastNameMin")),
+      email: z
+        .string()
+        .min(1, t("form.errors.emailRequired"))
+        .email(t("form.errors.emailInvalid")),
+      password: z
+        .string()
+        .min(1, t("form.errors.passwordRequired"))
+        .min(8, t("form.errors.passwordMin"))
+        .regex(/\d/, t("form.errors.passwordNumber")),
+      confirmPassword: z
+        .string()
+        .min(1, t("form.errors.confirmPasswordRequired")),
+      phone: z
+        .string()
+        .min(1, t("form.errors.phoneRequired"))
+        .regex(/^\+?[0-9\s\-()]{7,}$/, t("form.errors.phoneInvalid")),
+      age: z
+        .number()
+        .refine((value) => !Number.isNaN(value), t("form.errors.ageRequired"))
+        .min(16, t("form.errors.ageMin"))
+        .max(120, t("form.errors.ageMax")),
+      website: z
+        .string()
+        .min(1, t("form.errors.websiteRequired"))
+        .regex(/^https?:\/\/.+/i, t("form.errors.websiteInvalid")),
+      birthDate: z
+        .string()
+        .min(1, t("form.errors.birthDateRequired")),
+      country: z
+        .string()
+        .min(1, t("form.errors.countryRequired")),
+      role: z.string().min(1, t("form.errors.roleRequired")),
+      contactMethod: z.enum(["email", "phone", "sms"], {
+        message: t("form.errors.contactMethodRequired"),
+      }),
+      newsletter: z.boolean(),
+      terms: z
+        .boolean()
+        .refine((value) => value, t("form.errors.termsRequired")),
+      experience: z
+        .number()
+        .refine(
+          (value) => !Number.isNaN(value),
+          t("form.errors.experienceRequired"),
+        )
+        .min(1, t("form.errors.experienceRequired"))
+        .max(10, t("form.errors.experienceRequired")),
+      bio: z
+        .string()
+        .min(1, t("form.errors.bioRequired"))
+        .min(20, t("form.errors.bioMin")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("form.errors.confirmPasswordMismatch"),
+      path: ["confirmPassword"],
+    });
+
+type FormInput = z.input<ReturnType<typeof buildSchema>>;
+type FormValues = z.output<ReturnType<typeof buildSchema>>;
 
 const STORAGE_KEY = "homework-form-cache";
 
 export const ProductForm = () => {
   const { t } = useTranslation("common");
   const [cachedValues, setCachedValues] = useLocalStorage<
-    Partial<FormValues>
+    Partial<FormInput>
   >(STORAGE_KEY, {});
 
-  const defaultValues: FormValues = {
+  const schema = useMemo(() => buildSchema(t), [t]);
+
+  const defaultValues: FormInput = {
     firstName: "",
     lastName: "",
     email: "",
@@ -53,33 +111,36 @@ export const ProductForm = () => {
   const mergedDefaults = {
     ...defaultValues,
     ...cachedValues,
-  } as FormValues;
+  } as FormInput;
 
   const {
     register,
     handleSubmit,
-    watch,
-    getValues,
     reset,
+    control,
     formState: { errors, isSubmitting, isValid },
-  } = useForm<FormValues>({
+  } = useForm<FormInput, unknown, FormValues>({
     mode: "onBlur",
     reValidateMode: "onBlur",
     defaultValues: mergedDefaults,
+    resolver: zodResolver(schema),
   });
 
-  const experienceValue = watch("experience");
+  const watchedValues = useWatch<FormInput>({ control });
+  const experienceValue = watchedValues?.experience ?? defaultValues.experience;
 
   useEffect(() => {
-    const subscription = watch((values) => {
-      const { password, confirmPassword, ...safeValues } = values;
-      setCachedValues(safeValues);
-    });
+    if (!watchedValues) {
+      return;
+    }
 
-    return () => subscription.unsubscribe();
-  }, [setCachedValues, watch]);
+    const safeValues = { ...watchedValues };
+    delete safeValues.password;
+    delete safeValues.confirmPassword;
+    setCachedValues(safeValues);
+  }, [setCachedValues, watchedValues]);
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1200));
     console.log("Submitted form data:", data);
   };
@@ -104,13 +165,7 @@ export const ProductForm = () => {
               autoComplete="given-name"
               aria-invalid={Boolean(errors.firstName)}
               aria-describedby="firstName-error"
-              {...register("firstName", {
-                required: t("form.errors.firstNameRequired"),
-                minLength: {
-                  value: 2,
-                  message: t("form.errors.firstNameMin"),
-                },
-              })}
+              {...register("firstName")}
             />
             <p
               id="firstName-error"
@@ -129,13 +184,7 @@ export const ProductForm = () => {
               autoComplete="family-name"
               aria-invalid={Boolean(errors.lastName)}
               aria-describedby="lastName-error"
-              {...register("lastName", {
-                required: t("form.errors.lastNameRequired"),
-                minLength: {
-                  value: 2,
-                  message: t("form.errors.lastNameMin"),
-                },
-              })}
+              {...register("lastName")}
             />
             <p
               id="lastName-error"
@@ -154,13 +203,7 @@ export const ProductForm = () => {
               autoComplete="email"
               aria-invalid={Boolean(errors.email)}
               aria-describedby="email-error"
-              {...register("email", {
-                required: t("form.errors.emailRequired"),
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: t("form.errors.emailInvalid"),
-                },
-              })}
+              {...register("email")}
             />
             <p
               id="email-error"
@@ -179,13 +222,7 @@ export const ProductForm = () => {
               autoComplete="tel"
               aria-invalid={Boolean(errors.phone)}
               aria-describedby="phone-error"
-              {...register("phone", {
-                required: t("form.errors.phoneRequired"),
-                pattern: {
-                  value: /^\+?[0-9\s\-()]{7,}$/,
-                  message: t("form.errors.phoneInvalid"),
-                },
-              })}
+              {...register("phone")}
             />
             <p
               id="phone-error"
@@ -204,18 +241,7 @@ export const ProductForm = () => {
               autoComplete="new-password"
               aria-invalid={Boolean(errors.password)}
               aria-describedby="password-error"
-              {...register("password", {
-                required: t("form.errors.passwordRequired"),
-                minLength: {
-                  value: 8,
-                  message: t("form.errors.passwordMin"),
-                },
-                validate: {
-                  hasNumber: (value) =>
-                    /\d/.test(value) ||
-                    t("form.errors.passwordNumber"),
-                },
-              })}
+              {...register("password")}
             />
             <p
               id="password-error"
@@ -236,12 +262,7 @@ export const ProductForm = () => {
               autoComplete="new-password"
               aria-invalid={Boolean(errors.confirmPassword)}
               aria-describedby="confirmPassword-error"
-              {...register("confirmPassword", {
-                required: t("form.errors.confirmPasswordRequired"),
-                validate: (value) =>
-                  value === getValues("password") ||
-                  t("form.errors.confirmPasswordMismatch"),
-              })}
+              {...register("confirmPassword")}
             />
             <p
               id="confirmPassword-error"
@@ -261,12 +282,7 @@ export const ProductForm = () => {
               max={120}
               aria-invalid={Boolean(errors.age)}
               aria-describedby="age-error"
-              {...register("age", {
-                required: t("form.errors.ageRequired"),
-                valueAsNumber: true,
-                min: { value: 16, message: t("form.errors.ageMin") },
-                max: { value: 120, message: t("form.errors.ageMax") },
-              })}
+              {...register("age", { valueAsNumber: true })}
             />
             <p
               id="age-error"
@@ -284,9 +300,7 @@ export const ProductForm = () => {
               type="date"
               aria-invalid={Boolean(errors.birthDate)}
               aria-describedby="birthDate-error"
-              {...register("birthDate", {
-                required: t("form.errors.birthDateRequired"),
-              })}
+              {...register("birthDate")}
             />
             <p
               id="birthDate-error"
@@ -305,13 +319,7 @@ export const ProductForm = () => {
               placeholder={t("form.placeholders.website")}
               aria-invalid={Boolean(errors.website)}
               aria-describedby="website-error"
-              {...register("website", {
-                required: t("form.errors.websiteRequired"),
-                pattern: {
-                  value: /^https?:\/\/.+/i,
-                  message: t("form.errors.websiteInvalid"),
-                },
-              })}
+              {...register("website")}
             />
             <p
               id="website-error"
@@ -328,9 +336,7 @@ export const ProductForm = () => {
               id="country"
               aria-invalid={Boolean(errors.country)}
               aria-describedby="country-error"
-              {...register("country", {
-                required: t("form.errors.countryRequired"),
-              })}
+              {...register("country")}
             >
               <option value="">{t("form.options.selectOne")}</option>
               <option value="israel">{t("form.options.countries.israel")}</option>
@@ -355,9 +361,7 @@ export const ProductForm = () => {
               id="role"
               aria-invalid={Boolean(errors.role)}
               aria-describedby="role-error"
-              {...register("role", {
-                required: t("form.errors.roleRequired"),
-              })}
+              {...register("role")}
             >
               <option value="">{t("form.options.selectOne")}</option>
               <option value="developer">
@@ -390,9 +394,7 @@ export const ProductForm = () => {
                   className="visually-hidden-input"
                   type="radio"
                   value="email"
-                  {...register("contactMethod", {
-                    required: t("form.errors.contactMethodRequired"),
-                  })}
+                  {...register("contactMethod")}
                 />
                 <span className="control__indicator" aria-hidden="true" />
                 <span>{t("form.options.contactMethods.email")}</span>
@@ -402,9 +404,7 @@ export const ProductForm = () => {
                   className="visually-hidden-input"
                   type="radio"
                   value="phone"
-                  {...register("contactMethod", {
-                    required: t("form.errors.contactMethodRequired"),
-                  })}
+                  {...register("contactMethod")}
                 />
                 <span className="control__indicator" aria-hidden="true" />
                 <span>{t("form.options.contactMethods.phone")}</span>
@@ -414,9 +414,7 @@ export const ProductForm = () => {
                   className="visually-hidden-input"
                   type="radio"
                   value="sms"
-                  {...register("contactMethod", {
-                    required: t("form.errors.contactMethodRequired"),
-                  })}
+                  {...register("contactMethod")}
                 />
                 <span className="control__indicator" aria-hidden="true" />
                 <span>{t("form.options.contactMethods.sms")}</span>
@@ -442,10 +440,7 @@ export const ProductForm = () => {
               max={10}
               aria-invalid={Boolean(errors.experience)}
               aria-describedby="experience-error"
-              {...register("experience", {
-                required: t("form.errors.experienceRequired"),
-                valueAsNumber: true,
-              })}
+              {...register("experience", { valueAsNumber: true })}
             />
             <p
               id="experience-error"
@@ -463,13 +458,7 @@ export const ProductForm = () => {
               rows={4}
               aria-invalid={Boolean(errors.bio)}
               aria-describedby="bio-error"
-              {...register("bio", {
-                required: t("form.errors.bioRequired"),
-                minLength: {
-                  value: 20,
-                  message: t("form.errors.bioMin"),
-                },
-              })}
+              {...register("bio")}
             />
             <p
               id="bio-error"
@@ -499,9 +488,7 @@ export const ProductForm = () => {
                 type="checkbox"
                 aria-invalid={Boolean(errors.terms)}
                 aria-describedby="terms-error"
-                {...register("terms", {
-                  required: t("form.errors.termsRequired"),
-                })}
+                {...register("terms")}
               />
               <span className="control__indicator" aria-hidden="true" />
               <span>{t("form.labels.terms")}</span>

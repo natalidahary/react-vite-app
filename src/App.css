@@ -235,42 +235,203 @@
 
 
 /* =========================================================
-   NOTES PAGE
+   FORM PAGE
 ========================================================= */
-.notes-card {
-  max-width: 500px;
-  margin: 5rem auto;
-  padding: 1.5rem;
+.form-card {
+  max-width: 960px;
+  margin: 3rem auto 5rem;
+  padding: 2.5rem 3rem;
   border-radius: 30px;
   background: rgb(226, 228, 231);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.notes-title {
+.form-title {
   text-align: center;
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
-}
-
-.notes-textarea {
-  width: 95%;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  border: 2px solid black;
-  resize: none;
-}
-
-.notes-message {
-  margin-top: 1rem;
-  color: #130506;
-  font-size: 1rem;
-  text-align: center;
+  font-size: 2.3rem;
   font-weight: 800;
 }
 
-.notes-actions {
+.form-description {
   text-align: center;
+  margin: 0.6rem 0 2rem;
+  color: #303030;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.75rem;
+}
+
+.form-span-2 {
+  grid-column: span 2;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+fieldset.form-field {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-field label,
+.form-field legend {
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 2px solid #111;
+  background: #fff;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  outline: none;
+  border-color: #2c5b57;
+  box-shadow: 0 0 0 3px rgba(44, 91, 87, 0.25);
+}
+
+.form-field input:-webkit-autofill,
+.form-field input:-webkit-autofill:hover,
+.form-field input:-webkit-autofill:focus,
+.form-field select:-webkit-autofill,
+.form-field select:-webkit-autofill:hover,
+.form-field select:-webkit-autofill:focus,
+.form-field textarea:-webkit-autofill,
+.form-field textarea:-webkit-autofill:hover,
+.form-field textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: inherit;
+  box-shadow: 0 0 0 1000px #fff inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.form-field input[type="range"] {
+  padding: 0;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1b1b1b;
+  position: relative;
+}
+
+.visually-hidden-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.control__indicator {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #111;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.control--radio .control__indicator {
+  border-radius: 50%;
+}
+
+.control input:checked + .control__indicator::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: inherit;
+  background: #111;
+}
+
+.control input:focus-visible + .control__indicator {
+  box-shadow: 0 0 0 3px rgba(44, 91, 87, 0.25);
+  border-color: #2c5b57;
+}
+
+.field-error {
+  min-height: 20px;
+  font-size: 0.85rem;
+  color: #b22626;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.field-error.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.form-submit {
+  margin-top: 0;
+  min-width: 200px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-cache-note {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+@media (max-width: 760px) {
+  .form-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-span-2 {
+    grid-column: span 1;
+  }
 }
 
 
@@ -385,7 +546,7 @@ body.dark {
 /* Containers */
 body.dark .products-page,
 body.dark .about-page,
-body.dark .notes-card,
+body.dark .form-card,
 body.dark .product-detail {
   background: #242424;
   border: 1px solid #333;
@@ -397,7 +558,7 @@ body.dark h2,
 body.dark h3,
 body.dark .products-title,
 body.dark .about-title,
-body.dark .notes-title,
+body.dark .form-title,
 body.dark .product-detail-title {
   color: #fff;
 }
@@ -406,21 +567,55 @@ body.dark .product-detail-title {
 body.dark .product-detail-text,
 body.dark .error-message,
 body.dark .about-text,
-body.dark .notes-message {
+body.dark .form-description,
+body.dark .form-cache-note {
   color: #e0e0e0;
 }
 
 /* Inputs */
 body.dark input,
+body.dark select,
 body.dark textarea {
   background: #3a3a3a;
   color: #ffffff;
   border: 2px solid #666;
 }
 
+body.dark .form-field input:-webkit-autofill,
+body.dark .form-field input:-webkit-autofill:hover,
+body.dark .form-field input:-webkit-autofill:focus,
+body.dark .form-field select:-webkit-autofill,
+body.dark .form-field select:-webkit-autofill:hover,
+body.dark .form-field select:-webkit-autofill:focus,
+body.dark .form-field textarea:-webkit-autofill,
+body.dark .form-field textarea:-webkit-autofill:hover,
+body.dark .form-field textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  box-shadow: 0 0 0 1000px #3a3a3a inset;
+}
+
 body.dark input::placeholder,
+body.dark select::placeholder,
 body.dark textarea::placeholder {
   color: #bbbbbb;
+}
+
+body.dark .form-field label,
+body.dark .form-field legend {
+  color: #f5f5f5;
+}
+
+body.dark .control__indicator {
+  background: #2b2b2b;
+  border-color: #777;
+}
+
+body.dark .control input:checked + .control__indicator::after {
+  background: #f5f5f5;
+}
+
+body.dark .field-error {
+  color: #f09090;
 }
 
 /* Buttons */

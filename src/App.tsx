@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Navbar, CartSidebar, ToastHost } from "@/components";
-import { ProductNotes, About, Products, ProductDetail } from "@/pages";
+import { ProductForm, About, Products, ProductDetail } from "@/pages";
 import "./App.css";
 
 export const App = () => {
@@ -11,7 +11,7 @@ export const App = () => {
       <ToastHost />
 
       <Routes>
-        <Route path="/" element={<ProductNotes />} />
+        <Route path="/" element={<ProductForm />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />

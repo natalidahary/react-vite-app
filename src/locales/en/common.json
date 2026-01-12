@@ -1,15 +1,9 @@
 {
   "nav": {
-    "notes": "Notes",
+    "form": "Form",
     "about": "About",
     "products": "Products",
     "cart": "Cart ({{count}})"
-  },
-  "notes": {
-    "title": "Product Notes",
-    "placeholder": "Write a note about a product...",
-    "save": "Save Note",
-    "saved": "Your note has been saved."
   },
   "about": {
     "title": "About",
@@ -27,5 +21,84 @@
   "theme": {
     "light": "Light Mode",
     "dark": "Dark Mode"
+  },
+  "form": {
+    "title": "Profile Setup Form",
+    "description": "Complete all fields to enable the submit button.",
+    "experienceLabel": "Experience level: {{value}}/10",
+    "cacheNote": "Non-sensitive fields are saved locally while you type.",
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "age": "Age",
+      "birthDate": "Date of birth",
+      "website": "Portfolio URL",
+      "country": "Country",
+      "role": "Primary role",
+      "contactMethod": "Preferred contact method",
+      "bio": "Short bio",
+      "newsletter": "Subscribe to product updates",
+      "terms": "I agree to the terms and conditions"
+    },
+    "placeholders": {
+      "website": "https://"
+    },
+    "options": {
+      "selectOne": "Select one",
+      "countries": {
+        "israel": "Israel",
+        "usa": "United States",
+        "uk": "United Kingdom",
+        "germany": "Germany"
+      },
+      "roles": {
+        "developer": "Developer",
+        "designer": "Designer",
+        "pm": "Product manager",
+        "qa": "QA analyst"
+      },
+      "contactMethods": {
+        "email": "Email",
+        "phone": "Phone",
+        "sms": "SMS"
+      }
+    },
+    "buttons": {
+      "submit": "Submit form",
+      "reset": "Reset form",
+      "submitting": "Submitting..."
+    },
+    "errors": {
+      "firstNameRequired": "First name is required",
+      "firstNameMin": "First name must be at least 2 characters",
+      "lastNameRequired": "Last name is required",
+      "lastNameMin": "Last name must be at least 2 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address",
+      "phoneRequired": "Phone is required",
+      "phoneInvalid": "Enter a valid phone number",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordNumber": "Password must include at least one number",
+      "confirmPasswordRequired": "Please confirm your password",
+      "confirmPasswordMismatch": "Passwords do not match",
+      "ageRequired": "Age is required",
+      "ageMin": "You must be at least 16",
+      "ageMax": "Enter a realistic age",
+      "birthDateRequired": "Date of birth is required",
+      "websiteRequired": "Portfolio URL is required",
+      "websiteInvalid": "URL must start with http:// or https://",
+      "countryRequired": "Please select a country",
+      "roleRequired": "Select a primary role",
+      "contactMethodRequired": "Choose a contact method",
+      "experienceRequired": "Select an experience level",
+      "bioRequired": "Tell us a bit about yourself",
+      "bioMin": "Bio must be at least 20 characters",
+      "termsRequired": "You must accept the terms to continue"
+    }
   }
 }

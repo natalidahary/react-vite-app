@@ -1,2 +1,2 @@
-export { default as i18n } from "./lib/i18n";
-export * from "./lib/language";
+export { default as i18n } from "./lib/I18n";
+export * from "./lib/Language";

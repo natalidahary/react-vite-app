@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { SidebarContext } from "./SidebarContext";
-import { useLocalStorage } from "./useLocalStorage";
+import { useLocalStorage } from "./UseLocalStorage";
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setOpen] = useLocalStorage("sidebar-open", false);

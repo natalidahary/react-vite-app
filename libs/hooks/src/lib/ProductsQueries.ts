@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchProductById, fetchProducts, fetchProductsPage } from "./products.api";
-import type { Product, ProductListResponse } from "./product.types";
+import { fetchProductById, fetchProducts, fetchProductsPage } from "./ProductsApi";
+import type { Product, ProductListResponse } from "./ProductTypes";
 
 type CreateProductInput = Omit<Product, "id">;
 
@@ -37,6 +37,7 @@ export const useProductQuery = (id?: string) =>
 export const useInfiniteProductsQuery = (query: string, pageSize = 8) =>
   useInfiniteQuery({
     queryKey: productsKeys.infinite(query),
+    initialPageParam: 0,
     queryFn: ({ pageParam = 0 }) =>
       fetchProductsPage(query, pageSize, pageParam),
     getNextPageParam: (lastPage: ProductListResponse) => {

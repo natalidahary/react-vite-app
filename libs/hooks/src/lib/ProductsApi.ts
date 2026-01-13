@@ -1,4 +1,4 @@
-import type { Product, ProductListResponse } from "./product.types";
+import type { Product, ProductListResponse } from "./ProductTypes";
 
 export async function fetchProducts(query: string): Promise<ProductListResponse> {
   const res = await fetch(`https://dummyjson.com/products/search?q=${query}`);

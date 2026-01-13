@@ -1,104 +1,60 @@
-## Product Explorer – Advanced 1 (i18n + PrimeReact)
-
-This project continues from an existing Vite + React store application
-as part of **Advanced 1 homework**.
-
-Starting point: existing store app using TanStack Query  
-API used: DummyJSON (https://dummyjson.com)
-
-
-### Tech Stack
-
-- React + TypeScript + Vite
-- React Router
-- TanStack React Query
-- Zustand
-- React Context
-- i18next + react-i18next
-- PrimeReact + PrimeIcons
-- localStorage persistence
-
-### Step 1 – Internationalization (i18n)
-
-- Added i18next + react-i18next
-- Initialized i18n once in `src/i18n.ts`
-- Used namespaces:
-  - `common` – navigation, buttons, generic UI
-  - `products` – product list & detail UI
-- Supported languages:
-  - English (`en`)
-  - Hebrew (`he`)
-
-### Step 2 – i18n Usage
-
-Translated all visible UI strings:
-- Navbar
-- Products list
-- Product detail
-- Cart sidebar
-- Notes page
-
-Demonstrated required i18n features:
-- **Interpolation** – cart item count
-- **Pluralization** – product results count
-- **`<Trans />` usage** – embedded link in About page
-
-### Step 3 – Language Switcher + Persistence
-
-- Language switcher in header
-- Uses `i18n.changeLanguage()` for immediate UI updates
-- Selected language persisted in `localStorage`
-- Restored on page reload
-- Default language: `en`
-
-### Step 4 – RTL Support (Hebrew)
-
-- When Hebrew is active:
-  - `document.documentElement.dir = "rtl"`
-  - `document.documentElement.lang = "he"`
-- Fixed RTL layout issues (alignment, spacing, icons)
-
-### Step 5 – PrimeReact DataTable
-
-- Installed PrimeReact and PrimeIcons
-- Converted products list to PrimeReact DataTable
-- Data driven directly from TanStack Query (no duplicated server state)
-
-**Columns:**
-- Title
-- Price
-- Category
-- Image
-- Action (View details)
-
-**Features:**
-- Sorting (title, price)
-- Pagination (8 rows per page)
-
-### Step 6 – PrimeReact Theme Switch
-
-- Implemented dynamic PrimeReact theme switching
-- Themes used:
-  - `lara-light-blue`
-  - `lara-dark-blue`
-- Theme switcher in header
-- Selected theme persisted in `localStorage`
-- Default theme: `dark`
-
-**localStorage key:** `theme`
-
-### Bonus A – Locale-aware Price Formatting
-
-- Prices formatted using `Intl.NumberFormat`
-- Currency adapts to active language:
-  - EN → USD
-  - HE → ILS
-- Prices update immediately on language switch
-
-### Running the Project
-
-            npm install
-            npm run dev
-Open:
-
-            http://localhost:5173
+# Product Explorer Nx Workspace
+Short walkthrough: migrated the Vite app into `apps/productexplorer`, added `libs/ui`, `libs/hooks`, `libs/i18n`, and enforced Nx module boundaries.
+How to run
+- npx nx serve productexplorer
+- npx nx build productexplorer
+- npx nx lint productexplorer
+- npx nx test productexplorer (echoes Playwright e2e command)
+Workspace structure
+- apps/productexplorer: Vite + React app
+- libs: ui (Button/GlobalLoader/Toaster/Navbar/CartSidebar/ErrorMessage/ProductList), hooks (TanStack Query + app hooks/stores), i18n (init/locales/helpers)
+Architecture rules (Nx module boundaries)
+- type:ui -> type:hooks,type:i18n; type:hooks -> type:i18n; type:i18n -> none; apps -> any lib; libs cannot import apps
+Affected demo (A4)
+Command:
+```
+npx nx affected -t lint,build,test
+```
+Output:
+```
+NX   Affected criteria defaulted to --base=main --head=HEAD
+NX   Running targets lint, build, test for 5 projects:
+- productexplorer-workspace
+- productexplorer
+- hooks
+- i18n
+- ui
+> nx run i18n:lint
+> eslint libs/i18n/src
+> nx run productexplorer:lint
+> eslint apps/productexplorer/src
+> nx run productexplorer:build
+> vite build --logLevel error
+> nx run productexplorer-workspace:build
+> echo "workspace build skipped"
+workspace build skipped
+> nx run productexplorer-workspace:lint
+> echo "workspace lint skipped"
+workspace lint skipped
+> nx run productexplorer-workspace:test
+> echo "workspace tests skipped"
+workspace tests skipped
+> nx run productexplorer:test
+> echo "Run npx playwright test for e2e coverage"
+Run npx playwright test for e2e coverage
+> nx run hooks:lint
+> eslint libs/hooks/src
+> nx run ui:lint
+> eslint libs/ui/src
+NX   Successfully ran targets lint, build, test for 5 projects
+```
+Equivalent to print-affected (Nx 19+)
+```
+npx nx show projects --affected -t build
+```
+```
+productexplorer-workspace
+productexplorer
+```
+Stretch (S3) CI command
+- npx nx affected -t lint,test,build --base=origin/main --head=HEAD

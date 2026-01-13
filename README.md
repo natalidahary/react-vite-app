@@ -17,44 +17,41 @@ npx nx affected -t lint,build,test
 ```
 Output:
 ```
-NX   Affected criteria defaulted to --base=main --head=HEAD
-NX   Running targets lint, build, test for 5 projects:
-- productexplorer-workspace
-- productexplorer
-- hooks
-- i18n
-- ui
-> nx run i18n:lint
-> eslint libs/i18n/src
-> nx run productexplorer:lint
-> eslint apps/productexplorer/src
-> nx run productexplorer:build
-> vite build --logLevel error
-> nx run productexplorer-workspace:build
-> echo "workspace build skipped"
-workspace build skipped
-> nx run productexplorer-workspace:lint
-> echo "workspace lint skipped"
-workspace lint skipped
-> nx run productexplorer-workspace:test
-> echo "workspace tests skipped"
-workspace tests skipped
-> nx run productexplorer:test
-> echo "Run npx playwright test for e2e coverage"
-Run npx playwright test for e2e coverage
-> nx run hooks:lint
-> eslint libs/hooks/src
-> nx run ui:lint
-> eslint libs/ui/src
-NX   Successfully ran targets lint, build, test for 5 projects
+NX    Completed 5 lint, build, test tasks, and 4 others they depend on (6.2s)                      Cache   Duration
+
+✔    hooks:lint                                                                                       -       3.7s
+✔    productexplorer:lint                                                                             -       4.2s
+✔    productexplorer:build                                                                            -       4.4s
+✔    productexplorer-workspace:build                                                                  -       22ms
+✔    productexplorer-workspace:lint                                                                   -       19ms
+✔    productexplorer-workspace:test                                                                   -       22ms
+✔    productexplorer:test                                                                             -       17ms
+✔    i18n:lint                                                                                        -       1.9s
+✔    ui:lint                                                                                          -       2.1s
 ```
 Equivalent to print-affected (Nx 19+)
 ```
 npx nx show projects --affected -t build
 ```
 ```
+natalidahary@MacBookPro react-vite-app % npx nx show projects --affected -t build
+
 productexplorer-workspace
 productexplorer
 ```
 Stretch (S3) CI command
 - npx nx affected -t lint,test,build --base=origin/main --head=HEAD
+Output:
+```
+natalidahary@MacBookPro react-vite-app % NX_DAEMON=false NX_ISOLATE_PLUGINS=false npx nx affected -t lint,test,build --base=origin/main --head=HEAD
+
+✔  nx run productexplorer:build
+✔  nx run productexplorer:lint
+✔  nx run hooks:lint
+✔  nx run i18n:lint
+✔  nx run ui:lint
+✔  nx run productexplorer-workspace:build
+✔  nx run productexplorer-workspace:lint
+✔  nx run productexplorer-workspace:test
+✔  nx run productexplorer:test
+```

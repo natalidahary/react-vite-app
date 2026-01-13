@@ -5,7 +5,7 @@ import commonEn from "./locales/en/common.json";
 import productsEn from "./locales/en/products.json";
 import commonHe from "./locales/he/common.json";
 import productsHe from "./locales/he/products.json";
-import { getStoredLanguage } from "./Language";
+import { getStoredLanguage } from "./language";
 
 const savedLang = getStoredLanguage();
 

@@ -51,15 +51,24 @@ export default defineConfig([
           depConstraints: [
             {
               sourceTag: "type:app",
-              onlyDependOnLibsWithTags: ["type:ui", "type:hooks", "type:i18n"],
+              onlyDependOnLibsWithTags: [
+                "type:ui",
+                "type:hooks",
+                "type:data",
+                "type:i18n",
+              ],
             },
             {
               sourceTag: "type:ui",
-              onlyDependOnLibsWithTags: ["type:hooks", "type:i18n"],
+              onlyDependOnLibsWithTags: ["type:hooks", "type:data", "type:i18n"],
             },
             {
               sourceTag: "type:hooks",
-              onlyDependOnLibsWithTags: ["type:i18n"],
+              onlyDependOnLibsWithTags: ["type:data", "type:i18n"],
+            },
+            {
+              sourceTag: "type:data",
+              onlyDependOnLibsWithTags: [],
             },
             {
               sourceTag: "type:i18n",

@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchProductById, fetchProducts, fetchProductsPage } from "./products.api";
-import type { Product, ProductListResponse } from "./product.types";
+import { fetchProductById, fetchProducts, fetchProductsPage } from "@productexplorer/data";
+import type { Product, ProductListResponse } from "@productexplorer/data";
 
 type CreateProductInput = Omit<Product, "id">;
 

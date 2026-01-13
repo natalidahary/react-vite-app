@@ -9,6 +9,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
       "@productexplorer/ui": path.resolve(__dirname, "../../libs/ui/src"),
       "@productexplorer/hooks": path.resolve(__dirname, "../../libs/hooks/src"),
+      "@productexplorer/data": path.resolve(__dirname, "../../libs/data/src"),
       "@productexplorer/i18n": path.resolve(__dirname, "../../libs/i18n/src"),
     },
   },

@@ -1,4 +1,4 @@
-import type { Product } from "@productexplorer/hooks";
+import type { Product } from "@productexplorer/data";
 import { Link } from "react-router-dom";
 
 interface ProductListProps {

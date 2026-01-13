@@ -1,5 +1,5 @@
 # Product Explorer Nx Workspace
-Short walkthrough: migrated the Vite app into `apps/productexplorer`, added `libs/ui`, `libs/hooks`, `libs/i18n`, and enforced Nx module boundaries.
+Short walkthrough: migrated the Vite app into `apps/productexplorer`, added `libs/ui`, `libs/hooks`, `libs/data`, `libs/i18n`, and enforced Nx module boundaries.
 How to run
 - npx nx serve productexplorer
 - npx nx build productexplorer
@@ -7,9 +7,9 @@ How to run
 - npx nx test productexplorer (echoes Playwright e2e command)
 Workspace structure
 - apps/productexplorer: Vite + React app
-- libs: ui (Button/GlobalLoader/Toaster/Navbar/CartSidebar/ErrorMessage/ProductList), hooks (TanStack Query + app hooks/stores), i18n (init/locales/helpers)
+- libs: ui (Button/GlobalLoader/Toaster/Navbar/CartSidebar/ErrorMessage/ProductList), hooks (app hooks/stores), data (types + API helpers), i18n (init/locales/helpers)
 Architecture rules (Nx module boundaries)
-- type:ui -> type:hooks,type:i18n; type:hooks -> type:i18n; type:i18n -> none; apps -> any lib; libs cannot import apps
+- type:ui -> type:hooks,type:data,type:i18n; type:hooks -> type:data,type:i18n; type:data -> none; type:i18n -> none; apps -> any lib; libs cannot import apps
 Affected demo (A4)
 Command:
 ```

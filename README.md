@@ -1,104 +1,57 @@
-## Product Explorer – Advanced 1 (i18n + PrimeReact)
+# Product Explorer Nx Workspace
+Short walkthrough: migrated the Vite app into `apps/productexplorer`, added `libs/ui`, `libs/hooks`, `libs/data`, `libs/i18n`, and enforced Nx module boundaries.
+How to run
+- npx nx serve productexplorer
+- npx nx build productexplorer
+- npx nx lint productexplorer
+- npx nx test productexplorer (echoes Playwright e2e command)
+Workspace structure
+- apps/productexplorer: Vite + React app
+- libs: ui (Button/GlobalLoader/Toaster/Navbar/CartSidebar/ErrorMessage/ProductList), hooks (app hooks/stores), data (types + API helpers), i18n (init/locales/helpers)
+Architecture rules (Nx module boundaries)
+- type:ui -> type:hooks,type:data,type:i18n; type:hooks -> type:data,type:i18n; type:data -> none; type:i18n -> none; apps -> any lib; libs cannot import apps
+Affected demo (A4)
+Command:
+```
+npx nx affected -t lint,build,test
+```
+Output:
+```
+NX    Completed 5 lint, build, test tasks, and 4 others they depend on (6.2s)                      Cache   Duration
 
-This project continues from an existing Vite + React store application
-as part of **Advanced 1 homework**.
+✔    hooks:lint                                                                                       -       3.7s
+✔    productexplorer:lint                                                                             -       4.2s
+✔    productexplorer:build                                                                            -       4.4s
+✔    productexplorer-workspace:build                                                                  -       22ms
+✔    productexplorer-workspace:lint                                                                   -       19ms
+✔    productexplorer-workspace:test                                                                   -       22ms
+✔    productexplorer:test                                                                             -       17ms
+✔    i18n:lint                                                                                        -       1.9s
+✔    ui:lint                                                                                          -       2.1s
+```
+Equivalent to print-affected (Nx 19+)
+```
+npx nx show projects --affected -t build
+```
+```
+natalidahary@MacBookPro react-vite-app % npx nx show projects --affected -t build
 
-Starting point: existing store app using TanStack Query  
-API used: DummyJSON (https://dummyjson.com)
+productexplorer-workspace
+productexplorer
+```
+Stretch (S3) CI command
+- npx nx affected -t lint,test,build --base=origin/main --head=HEAD
+Output:
+```
+natalidahary@MacBookPro react-vite-app % NX_DAEMON=false NX_ISOLATE_PLUGINS=false npx nx affected -t lint,test,build --base=origin/main --head=HEAD
 
-
-### Tech Stack
-
-- React + TypeScript + Vite
-- React Router
-- TanStack React Query
-- Zustand
-- React Context
-- i18next + react-i18next
-- PrimeReact + PrimeIcons
-- localStorage persistence
-
-### Step 1 – Internationalization (i18n)
-
-- Added i18next + react-i18next
-- Initialized i18n once in `src/i18n.ts`
-- Used namespaces:
-  - `common` – navigation, buttons, generic UI
-  - `products` – product list & detail UI
-- Supported languages:
-  - English (`en`)
-  - Hebrew (`he`)
-
-### Step 2 – i18n Usage
-
-Translated all visible UI strings:
-- Navbar
-- Products list
-- Product detail
-- Cart sidebar
-- Notes page
-
-Demonstrated required i18n features:
-- **Interpolation** – cart item count
-- **Pluralization** – product results count
-- **`<Trans />` usage** – embedded link in About page
-
-### Step 3 – Language Switcher + Persistence
-
-- Language switcher in header
-- Uses `i18n.changeLanguage()` for immediate UI updates
-- Selected language persisted in `localStorage`
-- Restored on page reload
-- Default language: `en`
-
-### Step 4 – RTL Support (Hebrew)
-
-- When Hebrew is active:
-  - `document.documentElement.dir = "rtl"`
-  - `document.documentElement.lang = "he"`
-- Fixed RTL layout issues (alignment, spacing, icons)
-
-### Step 5 – PrimeReact DataTable
-
-- Installed PrimeReact and PrimeIcons
-- Converted products list to PrimeReact DataTable
-- Data driven directly from TanStack Query (no duplicated server state)
-
-**Columns:**
-- Title
-- Price
-- Category
-- Image
-- Action (View details)
-
-**Features:**
-- Sorting (title, price)
-- Pagination (8 rows per page)
-
-### Step 6 – PrimeReact Theme Switch
-
-- Implemented dynamic PrimeReact theme switching
-- Themes used:
-  - `lara-light-blue`
-  - `lara-dark-blue`
-- Theme switcher in header
-- Selected theme persisted in `localStorage`
-- Default theme: `dark`
-
-**localStorage key:** `theme`
-
-### Bonus A – Locale-aware Price Formatting
-
-- Prices formatted using `Intl.NumberFormat`
-- Currency adapts to active language:
-  - EN → USD
-  - HE → ILS
-- Prices update immediately on language switch
-
-### Running the Project
-
-            npm install
-            npm run dev
-Open:
-
-            http://localhost:5173
+✔  nx run productexplorer:build
+✔  nx run productexplorer:lint
+✔  nx run hooks:lint
+✔  nx run i18n:lint
+✔  nx run ui:lint
+✔  nx run productexplorer-workspace:build
+✔  nx run productexplorer-workspace:lint
+✔  nx run productexplorer-workspace:test
+✔  nx run productexplorer:test
+```

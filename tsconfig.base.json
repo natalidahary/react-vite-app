@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["apps/productexplorer/src/*"],
+      "@productexplorer/ui": ["libs/ui/src/index.ts"],
+      "@productexplorer/ui/*": ["libs/ui/src/*"],
+      "@productexplorer/hooks": ["libs/hooks/src/index.ts"],
+      "@productexplorer/hooks/*": ["libs/hooks/src/*"],
+      "@productexplorer/data": ["libs/data/src/index.ts"],
+      "@productexplorer/data/*": ["libs/data/src/*"],
+      "@productexplorer/i18n": ["libs/i18n/src/index.ts"],
+      "@productexplorer/i18n/*": ["libs/i18n/src/*"]
+    }
+  }
+}

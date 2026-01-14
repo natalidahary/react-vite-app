@@ -39,3 +39,8 @@ coverage/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+
+
+.nx/cache
+.nx/workspace-data

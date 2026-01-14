@@ -1,13 +1,14 @@
 {
-  "name": "productexplorer",
+  "name": "productexplorer-workspace",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "nx serve productexplorer",
+    "build": "nx build productexplorer",
+    "lint": "nx lint productexplorer",
+    "preview": "nx preview productexplorer",
+    "test": "nx test productexplorer"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@nx/eslint-plugin": "^22.3.3",
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
@@ -38,8 +40,10 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "nx": "22.3.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.49.0",
     "vite": "^7.2.4"
-  }
+  },
+  "nx": {}
 }
